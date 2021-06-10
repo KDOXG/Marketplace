@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS Produto (
-    ean integer PRIMARY KEY,
+    ean numeric PRIMARY KEY,
     nome varchar (50) UNIQUE NOT NULL,
     categoria varchar (50) NOT NULL, 
     marca varchar (50) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Transportadora (
     cnpj varchar(14) UNIQUE NOT NULL, 
     nome varchar(50) NOT NULL, 
     endereco varchar(500) NOT NULL, 
-    telefones varchar(20) NOT NULL, 
+    telefone varchar(20) NOT NULL, 
     cidades text
 );
 
@@ -55,14 +55,14 @@ CREATE TABLE IF NOT EXISTS PessoaJuridica (
 CREATE TABLE IF NOT EXISTS Anuncio (
     id serial PRIMARY KEY, 
     dataPublicacao timestamp NOT NULL, 
-    produtoEan integer NOT NULL,
+    produtoEan numeric NOT NULL,
     usuarioID integer NOT NULL,
     FOREIGN KEY (produtoEan) REFERENCES produto (ean),
     FOREIGN KEY (usuarioID) REFERENCES vendedor (usuarioID)
 );
 
 CREATE TABLE IF NOT EXISTS Unidade (
-    anuncioID serial PRIMARY KEY, 
+    anuncioID integer PRIMARY KEY, 
     preco float NOT NULL,
     estoque int NOT NULL,
     desconto float, 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS Unidade (
 );
 
 CREATE TABLE IF NOT EXISTS Lote (
-    anuncioID serial PRIMARY KEY, 
+    anuncioID integer PRIMARY KEY, 
     preco float NOT NULL, 
     quantidadeLote int NOT NULL, 
     estoque int NOT NULL, 
@@ -144,15 +144,13 @@ CREATE TABLE IF NOT EXISTS Pedido (
     dataConclusao timestamp, 
     moeda varchar(20) NOT NULL, 
     custoEnvio float, 
-    cupomUsuarioID integer NOT NULL, 
+    cupomUsuarioID integer, 
     consumidorID integer NOT NULL, 
-    anuncioID integer NOT NULL,
     CHECK (
         status IN ('Pendente', 'Cancelada', 'Aprovada', 'Nota Fiscal', 'Em transito', 'Entregue', 'Devolvido', 'Concluido') 
     ),
     FOREIGN KEY (cupomUsuarioID) REFERENCES cuponsusuario (id), 
-    FOREIGN KEY (consumidorID) REFERENCES consumidor (usuarioID),
-    FOREIGN KEY (anuncioID) REFERENCES anuncio (id)
+    FOREIGN KEY (consumidorID) REFERENCES consumidor (usuarioID)
 );
 
 CREATE TABLE IF NOT EXISTS Vende (
@@ -165,9 +163,3 @@ CREATE TABLE IF NOT EXISTS Vende (
     FOREIGN KEY (transportadoraID) REFERENCES transportadora (id),
     FOREIGN KEY (pedidoID) REFERENCES pedido (id)
 );    
-
-
-INSERT table_name (...attr) VALUES (...values)
-UPDATE INTO table_name SET ...attr WHERE ...attr
-UPDATE INTO table_name WHERE ...attr
-SELECT ...aa FROM table_name WHERE ...attr
