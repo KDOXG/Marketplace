@@ -1,7 +1,18 @@
 -- Cadastrar um vendedor pessoa jurídica
 -- Cadastra o usuário
 INSERT INTO usuario (email, senha, nome, dataNascimento, endereco)
-VALUES ('ceo@mylittlepringles.com','acesso123','My Little Pringles', '1980-02-10','Rua Equestria, 255');
+VALUES ('ceo@mylittlepringles.com','acesso123','My Little Pringles', '1980-02-10','{
+  "endereco": {
+    "rua": "Rua Equestria",
+    "numero": "255",
+    "complemento": "casa",
+    "cep": "77001212",
+    "cidade": "Uruguaiana",
+    "bairro": "Lindóia",
+    "estado": "RS",
+    "pais": "Brasil"
+  }
+}');
 
 -- Cadastra o vendedor e associa
 INSERT INTO vendedor (usuarioID) VALUES (1);
@@ -26,7 +37,18 @@ VALUES (1, 15, 50, 0, 'Disponivel');
 -- Cadastrar o transporte de um produto
 -- Cadastra o usuário
 INSERT INTO usuario (email, senha, nome, telefone, dataNascimento, endereco)
-VALUES ('joojliano@gmail.com', 'senhasecreta854', 'Juliano Afonso Fukuda', '5522988477745', '1944-11-09', 'Rua Sao Luiz, 222');
+VALUES ('joojliano@gmail.com', 'senhasecreta854', 'Juliano Afonso Fukuda', '5522988477745', '1944-11-09', '{
+  "endereco": {
+    "rua": "Rua Sao Luiz",
+    "numero": "222",
+    "complemento": "casa",
+    "cep": "96425280",
+    "cidade": "Bagé",
+    "bairro": "Centro",
+    "estado": "RS",
+    "pais": "Brasil"
+  }
+}');
 
 -- Cadastra o usuário consumidor e associa
 INSERT INTO consumidor (usuarioID, cpf, cartoes)

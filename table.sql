@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Transportadora (
     id serial PRIMARY KEY, 
     cnpj varchar(14) UNIQUE NOT NULL, 
     nome varchar(50) NOT NULL, 
-    endereco varchar(500) NOT NULL, 
+    endereco text NOT NULL, 
     telefone varchar(20) NOT NULL, 
     cidades text
 );
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
     nome varchar(50) NOT NULL, 
     telefone varchar(20), 
     dataNascimento date NOT NULL, 
-    endereco varchar(100) NOT NULL
+    endereco text NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Consumidor(
