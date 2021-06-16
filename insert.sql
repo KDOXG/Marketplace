@@ -1,3 +1,8 @@
+/*
+Nesse exemplo, consideramos:
+Usuário com ID: 1 -> Vendedor
+Usuário com ID: 2 -> Consumidor
+*/
 -- Cadastrar um vendedor pessoa jurídica
 -- Cadastra o usuário
 INSERT INTO usuario (email, senha, nome, dataNascimento, endereco)
@@ -13,6 +18,10 @@ VALUES ('ceo@mylittlepringles.com','acesso123','My Little Pringles', '1980-02-10
     "pais": "Brasil"
   }
 }');
+/*
+A tabela *usuario* tem uma propriedade que auto incrementa o ID dos usuários, 
+nesse exemplo, vamos considerar que o INSERT acima criou o usuário com ID: 1 e iremos usar nas relações futuras.
+*/
 
 -- Cadastra o vendedor e associa
 INSERT INTO vendedor (usuarioID) VALUES (1);
@@ -49,6 +58,10 @@ VALUES ('joojliano@gmail.com', 'senhasecreta854', 'Juliano Afonso Fukuda', '5522
     "pais": "Brasil"
   }
 }');
+/*
+A tabela *usuario* tem uma propriedade que auto incrementa o ID dos usuários, 
+nesse exemplo, vamos considerar que o INSERT acima criou o usuário com ID: 2 e iremos usar nas relações futuras.
+*/
 
 -- Cadastra o usuário consumidor e associa
 INSERT INTO consumidor (usuarioID, cpf, cartoes)
@@ -68,6 +81,10 @@ VALUES ('82650737000114', 'Ollé Teleportes', 'Rua Gomes Carneiro, 777', '556798
     "RJ": ["Rio de Janeiro","Angra dos Reis"]
   }
 }');
+/*
+A tabela *transportadora* tem uma propriedade que auto incrementa o ID das transportadoras, 
+nesse exemplo, vamos considerar que o INSERT acima criou a transportadora com ID: 2 e iremos usar nas relações futuras.
+*/
 
 -- Cadastrar o transportado
 INSERT INTO transportado (anuncioID, transportadoraID)
@@ -76,7 +93,27 @@ VALUES (1, 1);
 -- Cadastrar o pedido
 INSERT INTO pedido (status, dataEmissao, moeda, custoEnvio, consumidorID) 
 VALUES ('Pendente',CURRENT_TIMESTAMP(0),'BRL', 55.99, 2);
+/*
+A tabela *pedido* tem uma propriedade que auto incrementa o ID dos pedidos, 
+nesse exemplo, vamos considerar que o INSERT acima criou o pedido com ID: 1 e iremos usar nas relações futuras.
+*/
 
 -- Cadastrar a venda
 INSERT INTO vende (transportadoraID, anuncioID, pedidoID, preco)
 VALUES (1, 1, 1, 70.99);
+
+-- Cria um Cupom
+INSERT INTO cupom (nome, duracao, usuarioID)
+VALUES ('Black Friday','2021-11-30 23:59:59',1);
+/*
+A tabela *Cupom* tem uma propriedade que auto incrementa o ID dos cupons, 
+nesse exemplo, vamos considerar que o INSERT acima criou o cupom com ID: 1 e iremos usar nas relações futuras.
+*/
+
+-- Vincula o cupom criado ao desconto por porcentagem
+INSERT INTO Porcentagem (cupomID, desconto)
+VALUES (1,45);
+
+-- Vincula o cupom ao um usuário
+INSERT INTO CuponsUsuario (usuarioID, cupomID)
+VALUES (1,1);
