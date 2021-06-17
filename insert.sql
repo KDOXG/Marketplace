@@ -73,14 +73,8 @@ VALUES (2, '79721723150', '{
     }
 }');
 -- Cadastra a transportadora
-INSERT INTO transportadora (cnpj, nome, endereco, telefone, cidades)
-VALUES ('82650737000114', 'Ollé Teleportes', 'Rua Gomes Carneiro, 777', '5567984739399', '{
-  "BRA":{
-    "RS": ["Pelotas","Capão do Leão","Santana do Livramento"],
-    "SP": ["São Paulo","Santos"],
-    "RJ": ["Rio de Janeiro","Angra dos Reis"]
-  }
-}');
+INSERT INTO transportadora (cnpj, nome, endereco, telefone, apilink)
+VALUES ('82650737000114', 'Ollé Teleportes', 'Rua Gomes Carneiro, 777', '5567984739399', 123);
 /*
 A tabela *transportadora* tem uma propriedade que auto incrementa o ID das transportadoras, 
 nesse exemplo, vamos considerar que o INSERT acima criou a transportadora com ID: 2 e iremos usar nas relações futuras.
@@ -91,16 +85,16 @@ INSERT INTO transportado (anuncioID, transportadoraID)
 VALUES (1, 1);
 
 -- Cadastrar o pedido
-INSERT INTO pedido (status, dataEmissao, moeda, custoEnvio, consumidorID) 
-VALUES ('Pendente',CURRENT_TIMESTAMP(0),'BRL', 55.99, 2);
+INSERT INTO pedido (status, dataEmissao, moeda, consumidorID) 
+VALUES ('Pendente',CURRENT_TIMESTAMP(0),'BRL', 2);
 /*
 A tabela *pedido* tem uma propriedade que auto incrementa o ID dos pedidos, 
 nesse exemplo, vamos considerar que o INSERT acima criou o pedido com ID: 1 e iremos usar nas relações futuras.
 */
 
 -- Cadastrar a venda
-INSERT INTO vende (transportadoraID, anuncioID, pedidoID, preco)
-VALUES (1, 1, 1, 70.99);
+INSERT INTO vende (transportadoraID, anuncioID, pedidoID, custoEnvio, preco)
+VALUES (1, 1, 1, 55.99, 70.99);
 
 -- Cria um Cupom
 INSERT INTO cupom (nome, duracao, usuarioID)
@@ -115,5 +109,5 @@ INSERT INTO Porcentagem (cupomID, desconto)
 VALUES (1,45);
 
 -- Vincula o cupom ao um usuário
-INSERT INTO CuponsUsuario (usuarioID, cupomID)
-VALUES (1,1);
+INSERT INTO CuponsUsuario (id,usuarioID, cupomID)
+VALUES (1,2,1);

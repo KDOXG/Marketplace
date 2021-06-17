@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Transportadora (
     nome varchar(50) NOT NULL, 
     endereco text NOT NULL, 
     telefone varchar(20) NOT NULL, 
-    cidades text
+    apilink numeric NOT NULL
 );
 
 -- <Usuário>
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS Fixo (
 );
 
 CREATE TABLE IF NOT EXISTS CuponsUsuario (
-    id integer,
+    id serial,
     usuarioID integer NOT NULL, 
     cupomID integer NOT NULL,
     PRIMARY KEY (id)
@@ -143,7 +143,6 @@ CREATE TABLE IF NOT EXISTS Pedido (
     dataDevolucao timestamp, 
     dataConclusao timestamp, 
     moeda varchar(20) NOT NULL, 
-    custoEnvio float, 
     cupomUsuarioID integer, 
     consumidorID integer NOT NULL, 
     CHECK (
@@ -158,6 +157,7 @@ CREATE TABLE IF NOT EXISTS Vende (
     anuncioID integer NOT NULL, 
     pedidoID integer NOT NULL, 
     PRIMARY KEY (transportadoraID,anuncioID,pedidoID),
+    custoEnvio float, 
     preco float NOT NULL,
     FOREIGN KEY (anuncioID) REFERENCES anuncio (id),
     FOREIGN KEY (transportadoraID) REFERENCES transportadora (id),
